@@ -14,7 +14,7 @@ function ModeSelect() {
     }
 
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <FormControl sx={{ minWidth: 120 }} size="small">
             <InputLabel id="lable_select_drank_light_mode">Mode</InputLabel>
             <Select
                 labelId="lable_select_drank_light_mode"
