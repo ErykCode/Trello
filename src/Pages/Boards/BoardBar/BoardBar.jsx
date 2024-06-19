@@ -31,7 +31,7 @@ function BoardBar() {
     <Box px={2} sx={{
       display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between',
       height: (theme) => theme.Trello.boardBarHeight,
-      gap: 2, overflowX: 'auto', borderBottom: '1px solid white',
+      gap: 2, overflowX: 'auto',
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#4b7bec')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
