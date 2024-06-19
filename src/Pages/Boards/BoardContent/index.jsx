@@ -46,17 +46,14 @@ function BoardContent() {
         >
           <Typography>Column Title</Typography>
           <Box>
-            <Button
-              sx={{ color: 'white' }}
+            <ExpandMoreIcon 
+              sx={{ color: 'text.primary', cursor: 'pointer'}}
               id="basic-button-recent"
               aria-controls={open ? 'basic-menu-recent' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               onClick={handleClick}
-              endIcon={<ExpandMoreIcon />}
-            >
-              Recent
-            </Button>
+            />
             <Menu
               id="basic-menu-recent"
               anchorEl={anchorEl}
