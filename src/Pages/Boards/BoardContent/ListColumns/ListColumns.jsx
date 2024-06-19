@@ -1,7 +1,7 @@
 import Column from './Column/Column'
 import Box from '@mui/material/Box'
-// import Button from '@mui/material/Button'
-// import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import Button from '@mui/material/Button'
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 
 function ListColumns() {
@@ -19,7 +19,7 @@ function ListColumns() {
       <Column />
       <Column />
 
-      {/* <Box
+      <Box
         sx={{
           minWidth: '200px',
           maxWidth: '200px',
@@ -36,7 +36,7 @@ function ListColumns() {
         >
           Add New Colum
         </Button>
-      </Box> */}
+      </Box>
     </Box>
   )
 }
