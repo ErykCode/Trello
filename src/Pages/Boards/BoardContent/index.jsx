@@ -14,6 +14,13 @@ import Tooltip from '@mui/material/Tooltip'
 import AddCardIcon from '@mui/icons-material/AddCard'
 import Cloud from '@mui/icons-material/Cloud'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CommentIcon from '@mui/icons-material/Comment';
+import LinkIcon from '@mui/icons-material/Link'
+import GroupIcon from '@mui/icons-material/Group';
 
 function BoardContent() {
 
@@ -38,14 +45,15 @@ function BoardContent() {
           minWidth: '300px',
           maxWidth: '300px',
           bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#333643' : '#ebecf0'),
-          ml: 2, borderRadius: '6px',
+          ml: 2, borderRadius: '6px', height: 'fit-content',
+           
         }}
       >
         {/* header */}
         <Box sx={{
-          height: Column_header_height, p: 2,
+          height: Column_header_height, p: 2, 
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-
+          
         }}
         >
           <Typography
@@ -114,9 +122,90 @@ function BoardContent() {
 
         {/* main */}
         <Box sx={{
-          
+          display: 'flex',
+          flexDirection: 'column', 
+          gap: 1, p: 1.2, overflowX: 'hidden', overflowY: 'auto',
+          maxHeight: (theme) => `calc(${theme.Trello.boardContentHeight} - 
+          ${theme.spacing(3)} - 
+          ${Column_header_height} - ${Column_footer_height}
+          )` 
         }}
         >
+          <Card sx={{
+            cursor: 'pointer',
+            boxShadow: '0 1px 0 0 rgba(0, 0, 0, 0.2)'
+          }}>
+            <CardMedia
+              sx={{ height: 140 }}
+              image="https://top10tphcm.com/wp-content/uploads/2023/02/phong-canh-5.jpg"
+              title="green iguana"
+            />
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code </Typography>
+            </CardContent>
+            <CardActions sx={{ p: '0 4px 8px 4px' }}>
+              <Button size="small" startIcon={<GroupIcon />}>20</Button>
+              <Button size="small" startIcon={<CommentIcon />}>15</Button>
+              <Button size="small" startIcon={<LinkIcon />}>10</Button>
+            </CardActions>
+          </Card>
+          {/* column 2 */}
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{
+            cursor: 'pointer',
+          }}>
+
+            <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+              <Typography > Eryk Code 02</Typography>
+            </CardContent>
+          </Card>
 
         </Box>
 
@@ -124,12 +213,11 @@ function BoardContent() {
         <Box sx={{
           height: Column_footer_height, p: 2,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-
         }}
         >
           <Button startIcon={<AddCardIcon> /</AddCardIcon>}>Add New Card</Button>
           <Tooltip title="Drag to move">
-            <DragHandleIcon sx={{cursor: 'pointer'}} />
+            <DragHandleIcon sx={{ cursor: 'pointer' }} />
           </Tooltip>
         </Box>
 
