@@ -8,8 +8,12 @@ import Divider from '@mui/material/Divider'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ContentCut from '@mui/icons-material/ContentCut'
-import Cloud from '@mui/icons-material/Cloud'
+import DeleteIcon from '@mui/icons-material/Delete'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Tooltip from '@mui/material/Tooltip'
+import AddCardIcon from '@mui/icons-material/AddCard'
+import Cloud from '@mui/icons-material/Cloud'
+import DragHandleIcon from '@mui/icons-material/DragHandle'
 
 function BoardContent() {
 
@@ -44,50 +48,73 @@ function BoardContent() {
 
         }}
         >
-          <Typography>Column Title</Typography>
+          <Typography
+            sx={{
+              fontWeight: 'bold', cursor: 'pointer'
+            }}
+          >
+            Column Title
+          </Typography>
           <Box>
-            <ExpandMoreIcon 
-              sx={{ color: 'text.primary', cursor: 'pointer'}}
-              id="basic-button-recent"
-              aria-controls={open ? 'basic-menu-recent' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            />
+            <Tooltip title='More Option'>
+              <ExpandMoreIcon
+                sx={{ color: 'text.primary', cursor: 'pointer' }}
+                id="basic-button-column-dropdown"
+                aria-controls={open ? 'basic-menu-column-dropdown"' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              />
+            </Tooltip>
             <Menu
-              id="basic-menu-recent"
+              id="basic-menu-column-dropdown"
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
               MenuListProps={{
-                'aria-labelledby': 'basic-button-recent',
+                'aria-labelledby': 'basic-button-column-dropdown"',
               }}
             >
               <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <ContentCut fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Cut</ListItemText>
-                <Typography variant="body2" color="text.secondary">
-                  ⌘X
-                </Typography>
+                <ListItemIcon> <AddCardIcon fontSize="small" /> </ListItemIcon>
+                <ListItemText>Add New Card</ListItemText>
               </MenuItem>
-              <Divider />
+
               <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <Cloud fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Web Clipboard</ListItemText>
+                <ListItemIcon> <ContentCut fontSize="small" /> </ListItemIcon>
+                <ListItemText>Cut</ListItemText>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon> <ContentCut fontSize="small" /> </ListItemIcon>
+                <ListItemText>Copy</ListItemText>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon> <ContentCut fontSize="small" /> </ListItemIcon>
+                <ListItemText>Paste</ListItemText>
+              </MenuItem>
+
+              <Divider />
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon> <DeleteIcon fontSize="small" /> </ListItemIcon>
+                <ListItemText>Remove this column</ListItemText>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon> <Cloud fontSize="small" /> </ListItemIcon>
+                <ListItemText>Archive this column</ListItemText>
               </MenuItem>
             </Menu>
-          </Box> 
-            
+          </Box>
+
 
         </Box>
 
         {/* main */}
         <Box sx={{
-
+          
         }}
         >
 
@@ -97,9 +124,13 @@ function BoardContent() {
         <Box sx={{
           height: Column_footer_height, p: 2,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+
         }}
         >
-
+          <Button startIcon={<AddCardIcon> /</AddCardIcon>}>Add New Card</Button>
+          <Tooltip title="Drag to move">
+            <DragHandleIcon sx={{cursor: 'pointer'}} />
+          </Tooltip>
         </Box>
 
       </Box>
