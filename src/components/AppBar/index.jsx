@@ -18,15 +18,17 @@ import Profiles from './DropMenus/Profiles'
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
-import { BorderColor } from '@mui/icons-material'
+import { useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
 
 function AppBar() {
+  const [search, setSearch] = useState('')
   return (
     <Box px={2} sx={{
       display: 'flex', alignItems: 'center',
       width: '100%', height: (theme) => theme.Trello.appBarHeight,
       justifyContent: 'space-between', gap: 2, overflowX: 'auto',
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#34495e' : '#1565c0')
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#192a56' : '#3867d6 ')
     }}>
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -58,15 +60,26 @@ function AppBar() {
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <TextField
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          id="outlined-basic" size='small' label="Search"
+          type='text' variant="outlined"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon sx={{ color: 'white' }} />
               </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="start">
+                <CloseIcon
+                  fontSize='small'
+                  sx={{ color: search ? 'white' : 'transparent', cursor: 'pointer' }}
+                  onClick={() => setSearch('')}
+                />
+              </InputAdornment>
             )
           }}
-          id="outlined-basic" size='small' label="Search...."
-          type='search' variant="outlined" 
           sx={{
             minWidth: 120,
             maxWidth: 180,
@@ -74,16 +87,17 @@ function AppBar() {
             '& input': { color: 'white' },
             '& label.Mui-focused': { color: 'white' },
             '& .MuiOutlinedInput-root': {
+              paddingRight: 0,
               '& fieldset': { borderColor: 'white' },
               '&:hover fieldset': { borderColor: 'white' },
-              '&.Mui-focused fieldset': { BorderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
             }
           }}
-            />
+        />
         <ModeSelect />
 
         <Tooltip title="Notification">
-          <Badge variant="dot" color="primary" sx={{ cursor: 'pointer' }}>
+          <Badge variant="dot" color="warning" sx={{ cursor: 'pointer' }}>
             <NotificationsNoneIcon sx={{ color: 'white' }} />
           </Badge>
         </Tooltip>

@@ -11,14 +11,14 @@ import AvatarGroup from '@mui/material/AvatarGroup'
 import Tooltip from '@mui/material/Tooltip'
 
 const ChipStyle = {
-  color: 'primary.main',
-  bgcolor: 'white',
+  color: 'white',
+  bgcolor: 'transparent',
   bordercolor: '4px',
   border: 'none',
   paddingX: '4px',
   borderRadius: '5px',
-  '& .MuiSvgIcon-root': {
-    color: 'primary.main',
+  '.MuiSvgIcon-root': {
+    color: 'white',
   },
   '&:hover': {
     bgcolor: 'primary.50',
@@ -31,7 +31,8 @@ function BoardBar() {
     <Box px={2} sx={{
       display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between',
       height: (theme) => theme.Trello.boardBarHeight,
-      gap: 2, overflowX: 'auto', borderTop: '1px solid #00bfa5'
+      gap: 2, overflowX: 'auto', borderBottom: '1px solid white',
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#4b7bec')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Chip icon={<DashboardIcon />} clickable label="Eryk Trello Code"
@@ -50,13 +51,22 @@ function BoardBar() {
       </Box>
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button variant="outlined" startIcon={<PersonAddIcon />}>
+        <Button
+          variant="outlined" startIcon={<PersonAddIcon />}
+          sx={{
+            color: 'white',
+            borderColor: 'white',
+            '&:hover': {borderColor: 'white'}
+          }}
+        >
           Invite
         </Button>
 
         <AvatarGroup max={6}
           sx={{
+            gap: '6px',
             '& .MuiAvatar-root': {
+              border: 'none',
               width: 32, height: 32, fontSize: 18
             }
           }}
