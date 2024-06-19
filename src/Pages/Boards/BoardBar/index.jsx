@@ -21,7 +21,7 @@ const ChipStyle = {
     color: 'white',
   },
   '&:hover': {
-    bgcolor: 'primary.50',
+    bgcolor: 'primary.50'
   },
 }
 
@@ -66,8 +66,9 @@ function BoardBar() {
           sx={{
             gap: '6px',
             '& .MuiAvatar-root': {
-              border: 'none',
-              width: 32, height: 32, fontSize: 18
+              border: 'none', cursor: 'pointer',color: 'white', 
+              width: 32, height: 32, fontSize: 18, 
+              '&:first-of-type': { bgcolor: '#a4b0be' }
             }
           }}
         >
