@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import Card from './Card/Card'
 
-function ListCards() {
+function ListCards({cards}) {
   return (
     < Box sx={{
       display: 'flex',
@@ -14,16 +14,8 @@ function ListCards() {
     )`
     }}
     >
-      <Card/>
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      <Card temporaryHideMedia />
-      {/* column 2 */}
+     
+      {cards?.map(card => <Card key={card._id} card={card} />)}
 
     </Box >
   )
