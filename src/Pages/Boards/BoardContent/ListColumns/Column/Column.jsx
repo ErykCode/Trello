@@ -21,11 +21,12 @@ import { CSS } from '@dnd-kit/utilities'
 
 function Column({ column }) {
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-    id: column._id, date: { ...column }
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: column._id, data: { ...column }
   });
   const dndKitColumnStype = {
-    transform: CSS.Translate.toString(transform), transition
+    transform: CSS.Translate.toString(transform), transition,
+    opacity: isDragging ? 0.5 : undefined,
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -37,10 +38,7 @@ function Column({ column }) {
 
   return (
     < Box
-      ref={setNodeRef}
-      style={dndKitColumnStype}
-      {...attributes}
-      {...listeners}
+      ref={setNodeRef} style={dndKitColumnStype} {...attributes} {...listeners} 
       sx={{
         minWidth: '300px',
         maxWidth: '300px',
