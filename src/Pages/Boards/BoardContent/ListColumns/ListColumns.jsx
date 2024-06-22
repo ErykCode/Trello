@@ -2,41 +2,44 @@ import Column from './Column/Column'
 import Box from '@mui/material/Box'
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import Button from '@mui/material/Button'
+import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
 
 function ListColumns({ columns }) {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        minWidth: '100%',
-        maxWidth: '100%',
-        overflowX: 'auto', overflowY: 'hidden',
-        bgcolor: 'inherit'
-      }}
-    >
-      {columns?.map(column => <Column key={column._id } column={column} />)}
-
-      {/* Box Add New Column */}
+    <SortableContext items={columns?.map(c=>c._id )} strategy={horizontalListSortingStrategy}>
       <Box
         sx={{
-          minWidth: '200px',
-          maxWidth: '200px',
-          mx: 2, borderRadius: '5px',
-          height: 'fit-content', bgcolor: '#ffffff3d'
+          display: 'flex',
+          minWidth: '100%',
+          maxWidth: '100%',
+          overflowX: 'auto', overflowY: 'hidden',
+          bgcolor: 'inherit'
         }}
       >
-        <Button
-          startIcon={<NoteAddIcon />}
+        {columns?.map(column => <Column key={column._id} column={column} />)}
+
+        {/* Box Add New Column */}
+        <Box
           sx={{
-            color: 'white', width: '100%', justifyContent: 'flex-start',
-            pl: 2.5, py: 1
+            minWidth: '200px',
+            maxWidth: '200px',
+            mx: 2, borderRadius: '5px',
+            height: 'fit-content', bgcolor: '#ffffff3d'
           }}
         >
-          Add New Colum
-        </Button>
-      </Box>
+          <Button
+            startIcon={<NoteAddIcon />}
+            sx={{
+              color: 'white', width: '100%', justifyContent: 'flex-start',
+              pl: 2.5, py: 1
+            }}
+          >
+            Add New Colum
+          </Button>
+        </Box>
 
-    </Box>
+      </Box>
+    </SortableContext>
   )
 }
 
