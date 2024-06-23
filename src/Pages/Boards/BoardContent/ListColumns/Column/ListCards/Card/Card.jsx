@@ -31,7 +31,9 @@ function Card({ card }) {
       ref={setNodeRef} style={dndKitCardStype} {...attributes} {...listeners}
       sx={{
         cursor: 'pointer', overflow: 'unset',
-        boxShadow: '0 1px 0 0 rgba(0, 0, 0, 0.2)'
+        boxShadow: '0 1px 0 0 rgba(0, 0, 0, 0.2)',
+        display: card?.FE_PlaceholderCard ? 'none' : 'block'
+        ,
       }}>
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover}
       />
