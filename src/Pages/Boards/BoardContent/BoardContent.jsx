@@ -18,7 +18,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn,createNewCard }) {
   // phải di chuyển 10px mới kéo đc, fix khi click chuột bị gọi event
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
 
@@ -338,7 +338,11 @@ function BoardContent({ board }) {
         bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#4b7bec')
       }}>
 
-        <ListColumns columns={orderedColumns} />
+        <ListColumns 
+          columns={orderedColumns}
+          createNewColumn={createNewColumn}  
+          createNewCard={createNewCard}  
+        />
         <DragOverlay dropAnimation={dropAnimation}>
           {!activeDragItemType && null}
           {

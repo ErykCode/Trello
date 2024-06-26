@@ -71,7 +71,7 @@ function AppBar() {
               </InputAdornment>
             ),
             endAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position="end">
                 <CloseIcon
                   fontSize='small'
                   sx={{ color: search ? 'white' : 'transparent', cursor: 'pointer' }}
