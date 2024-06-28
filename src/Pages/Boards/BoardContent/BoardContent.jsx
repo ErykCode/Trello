@@ -18,7 +18,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board, createNewColumn,createNewCard }) {
+function BoardContent({ board, createNewColumn,createNewCard, moveColumns }) {
   // phải di chuyển 10px mới kéo đc, fix khi click chuột bị gọi event
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
 
@@ -260,10 +260,9 @@ function BoardContent({ board, createNewColumn,createNewCard }) {
         //Dùng arrayMove của dndKit để sắp xếp lại mảng columns
         //https://github.com/clauderic/dnd-kit/blob/master/packages/sortable/src/utilities/arrayMove.ts
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex)
-        //2 cái console này dùng để sau này dùng để xử lý api
-        // const dndOrderedColumnsIds = dndOrderedColumns.map(c => c._id)
-        // console.warn("dndOrderedColumns:", dndOrderedColumns)
-        // console.warn("dndOrderedColumnsIds:", dndOrderedColumnsIds)
+        
+
+        moveColumns(dndOrderedColumns)
 
         //cập nhật lại state columms ban đầu sau khi kéo thả
         setOrderedColumns(dndOrderedColumns)
