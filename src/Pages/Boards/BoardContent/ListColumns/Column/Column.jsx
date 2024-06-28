@@ -38,13 +38,13 @@ function Column({ column,createNewCard }) {
   const handleClick = (event) => { setAnchorEl(event.currentTarget) }
   const handleClose = () => { setAnchorEl(null) }
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const orderedCards = column?.cards
 
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
 
   const [newCardTitle, setNewCardTitle] = useState('')
-  const addNewCard = async () => {
+  const addNewCard = () => {
     // console.log('hahah');
     if (!newCardTitle) {
       toast.error("Please Enter Card Title", { position: 'bottom-right'})
@@ -58,7 +58,7 @@ function Column({ column,createNewCard }) {
     }
     // call api
 
-    await createNewCard(NewCardData)
+    createNewCard(NewCardData)
     // call api
 
     //đóng trạng thái thêm column và clear input
