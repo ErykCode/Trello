@@ -5,19 +5,28 @@ import BoardContent from './BoardContent/BoardContent'
 import { mockData } from '~/apis/mock-data'
 import { useEffect, useState } from 'react'
 import { createCardAPI, createColumnAPI, fetchBoardDetailsAPI } from '~/apis'
+import { generatePlaceholderCard } from '~/Utils/formatters'
+import { isEmpty } from 'lodash'
 
 function Board() {
-  
+
   const [board, setBoard] = useState(null)
 
   useEffect(() => {
-    const boardId = '66792606ab200742c94bf075'
+    const boardId = '667ec15e806dabf7eb643dd6'
 
     //call api
-    fetchBoardDetailsAPI(boardId).then((board)=>{
+    fetchBoardDetailsAPI(boardId).then((board) => {
+      board.columns.forEach(column => {
+        // khi f5 web cần xử lý kéo thả column rỗng 
+        if (isEmpty(column.cards)) {
+          column.cards = [generatePlaceholderCard(column)]
+          column.cardOrderIds = [generatePlaceholderCard(column)._id]
+        }
+      })
       setBoard(board)
     })
-  },[])
+  }, [])
 
   // gọi API tạo ới column và lm mới lại state
   const createNewColumn = async (newColumnData) => {
@@ -25,10 +34,15 @@ function Board() {
       ...newColumnData,
       boardId: board._id
     });
-    console.log("Created column", createdColumn);
+    // console.log("Created column", createdColumn);
+
+    // khi tạo column mới thì chx có card, cần xử lý kéo thả column rỗng 
+    createdColumn.cards = [generatePlaceholderCard(createdColumn)]
+    createdColumn.cardOrderIds = [generatePlaceholderCard(createdColumn)._id]
+
 
     // update Board
-    const newBoard = {...board}
+    const newBoard = { ...board }
     newBoard.columns.push(createdColumn)
     newBoard.columnOrderIds.push(createdColumn._id)
 
@@ -40,12 +54,11 @@ function Board() {
     const createdCard = await createCardAPI({
       ...newCardData,
       boardId: board._id,
-      // columnId: confirm
     });
     console.log("Created card", createdCard);
 
     // update Board
-    const newBoard = {...board}
+    const newBoard = { ...board }
     const columnToUpdate = newBoard.columns.find(column => column._id === createdCard.columnId);
     if (columnToUpdate) {
       columnToUpdate.cards.push(createdCard)
@@ -59,12 +72,12 @@ function Board() {
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar></AppBar>
       <BoardBar board={board}></BoardBar>
-      <BoardContent 
+      <BoardContent
         board={board}
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
       ></BoardContent>
-      
+
     </Container>
   )
 }
