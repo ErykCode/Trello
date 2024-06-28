@@ -18,7 +18,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
-function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCardInTheSameColumn }) {
+function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCardInTheSameColumn,moveCardToDifferentColumn }) {
   // phải di chuyển 10px mới kéo đc, fix khi click chuột bị gọi event
   const mouseSensor = useSensor(MouseSensor, { activationConstraint: { distance: 10 } });
 
@@ -55,7 +55,8 @@ function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCa
     over,
     activeColumn,
     activeDraggingCardId,
-    activeDraggingCardData
+    activeDraggingCardData,
+    triggerForm
   ) => {
     setOrderedColumns(prevColumns => {
       // Tìm vị trí (index) của cái overCard trong column đích (nơi mà activeCard sắp được thả)
@@ -111,6 +112,16 @@ function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCa
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map(card => card._id)
       }
       // console.log(nextColumns);
+
+      //nếu func đc gọi từ handleDragEnd ngĩa là đã kéo xog , lúc này gọi API 1 lần 
+      if (triggerForm == 'handleDragEnd') {
+        moveCardToDifferentColumn(
+          activeDraggingCardId, 
+          oldColumnWhenDraggingCard._id,
+          nextOverColumn._id,
+          nextColumns
+        )
+      }
 
       return nextColumns
     })
@@ -180,7 +191,8 @@ function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCa
         over,
         activeColumn,
         activeDraggingCardId,
-        activeDraggingCardData
+        activeDraggingCardData,
+        'handleDragOver'
       )
     }
   }
@@ -217,7 +229,8 @@ function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCa
           over,
           activeColumn,
           activeDraggingCardId,
-          activeDraggingCardData
+          activeDraggingCardData,
+          'handleDragEnd'
         )
       } else {
         // HĐ kéo card trong cùng 1 column
@@ -245,6 +258,7 @@ function BoardContent({ board, createNewColumn,createNewCard, moveColumns,moveCa
           targetColumn.cardOrderIds = dndOrderedCardIds
           // console.log('targetColumn: ', targetColumn)
 
+          
           // Trả lại vị trí state mới
           return nextColumns
         })
