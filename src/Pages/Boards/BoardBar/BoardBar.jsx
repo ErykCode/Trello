@@ -36,7 +36,7 @@ function BoardBar({ board }) {
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#273c75' : '#4b7bec')
     }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-      <Chip icon={<DashboardIcon />} clickable label="Add To Google Drive"
+      <Chip icon={<DashboardIcon />} clickable label={capitalizeFirstLetter(board?.title)}
           sx={ChipStyle}
         />
         <Chip icon={<VpnLockIcon />} clickable label={capitalizeFirstLetter(board?.type)}

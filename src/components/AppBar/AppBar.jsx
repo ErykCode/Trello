@@ -35,26 +35,7 @@ function AppBar() {
         <AppsIcon sx={{ color: 'white' }}></AppsIcon>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
           <SvgIcon component={trelloIcon} inheritViewBox fontSize='small' sx={{ color: 'white' }} />
-          <Typography variant="span" sx={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'white' }}>Trello</Typography>
-
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
-            <WorkSpaces></WorkSpaces>
-            <Recent></Recent>
-            <Starred></Starred>
-            <Templates></Templates>
-
-            <Button
-              sx={{
-                color: 'white',
-                border: 'none',
-                '&:hover': {
-                  border: 'none',
-                }
-              }}
-              variant="outlined" startIcon={<LibraryAddIcon />}
-            >
-              Create</Button>
-          </Box>
+          <Typography variant="span" sx={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'white' }}>MY PLAN</Typography>
         </Box>
       </Box>
 

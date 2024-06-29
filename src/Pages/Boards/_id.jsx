@@ -6,13 +6,15 @@ import BoardContent from './BoardContent/BoardContent'
 import { mockData } from '~/apis/mock-data'
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
 import {
   createCardAPI,
   createColumnAPI,
   fetchBoardDetailsAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
-  moveCardToDifferentColumnAPI
+  moveCardToDifferentColumnAPI,
+  deleteColumnDetailsAPI
 } from '~/apis'
 import { generatePlaceholderCard } from '~/Utils/formatters'
 import { mapOrder } from '~/Utils/sorts'
@@ -76,10 +78,10 @@ function Board() {
     const columnToUpdate = newBoard.columns.find(column => column._id === createdCard.columnId);
     if (columnToUpdate) {
       //Nếu column rỗng: chứa placeholder-card
-      if (columnToUpdate.cards.some(card => card.FE_PlaceholderCard )) {
+      if (columnToUpdate.cards.some(card => card.FE_PlaceholderCard)) {
         columnToUpdate.cards = [createdCard]
         columnToUpdate.cardOrderIds = [createdCard._id]
-      }else {
+      } else {
         //ngược lại có data thì push cuối mẳng
         columnToUpdate.cards.push(createdCard)
         columnToUpdate.cardOrderIds.push(createdCard._id)
@@ -129,7 +131,7 @@ function Board() {
     * B3: Cập nhật lại trường columnId mới của cái Card đã kéo
     * => Làm một API support riêng.
   */
-  const moveCardToDifferentColumn = (currentCardId, prevColumnId, nextColumnId, dndOrderedColumns ) => {
+  const moveCardToDifferentColumn = (currentCardId, prevColumnId, nextColumnId, dndOrderedColumns) => {
     // update chuẩn dữ liệu 
     const dndOrderedColumnsIds = dndOrderedColumns.map(c => c._id)
     const newBoard = { ...board }
@@ -142,14 +144,31 @@ function Board() {
     //xử lý bug khi kéo card cuối cx ra khỏi column, xóa placeholder-card trc khi trả về BE
     if (prevCardOrderIds[0].includes('placeholder-card')) prevCardOrderIds = []
 
-      moveCardToDifferentColumnAPI({
-        currentCardId,
-        prevColumnId,
-        prevCardOrderIds,
-        nextColumnId,
-        nextCardOrderIds: dndOrderedColumns.find(c => c._id === nextColumnId)?.cardOrderIds,
-      })
+    moveCardToDifferentColumnAPI({
+      currentCardId,
+      prevColumnId,
+      prevCardOrderIds,
+      nextColumnId,
+      nextCardOrderIds: dndOrderedColumns.find(c => c._id === nextColumnId)?.cardOrderIds,
+    })
 
+  }
+
+  //xóa 1 column và car bên trong
+  const deleteColumnDetails = (columnId) => {
+    // update chuẩn dữ liệu 
+    const newBoard = { ...board }
+    newBoard.columns = newBoard.columns.filter(c => c._id !== columnId)
+    newBoard.columnOrderIds = newBoard.columnOrderIds.filter(_id => _id !== columnId)
+
+
+
+    setBoard(newBoard)
+
+    //gọi API xử lý phía FE
+    deleteColumnDetailsAPI(columnId).then(res => {
+      toast.success(res?.deleteResult)
+    })
   }
 
   if (!board) {
@@ -171,6 +190,7 @@ function Board() {
         moveColumns={moveColumns}
         moveCardInTheSameColumn={moveCardInTheSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
+        deleteColumnDetails={deleteColumnDetails}
       ></BoardContent>
 
     </Container>
